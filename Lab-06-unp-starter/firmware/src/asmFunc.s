@@ -72,18 +72,25 @@ asmFunc:
      * Use it to test the C test code */
     
     /*** STUDENTS: Place your code BELOW this line!!! **************/
-    mov r4, r0
-    asr r4, r4, #16
-    lsl r4, r4, #16
-    asr r4, r4, #16
     
+    //this copies r0 into r4 because we need to extract and process the upper 16 bits
+    mov r4, r0
+    //this shifts right to move the upper 16 bits into the lower half while keeping the sign intact
+    asr r4, r4, #16
+    //this copies r0, but this time it's so that we can extract and process the lower 16 bits seprately from the upper
     mov r5, r0
+    //this makes all the numbers shift left to remove the upper 16 bits so that they won't interfere with whatever value we want
     lsl r5, r5, #16
+    //this makes all the numbers shift right to restore the sign of the lower 16 bits
     asr r5, r5, #16
     
+    //this will load the memory address of the a_value variable into r6 because this is where the upper 16 bit value will be stored
     ldr r6, =a_value
+    //this stores the value r4 into memory location pointed to by r6 because r6 has the address of a_value, which will write the result into a_value
     str r4, [r6]
+    //this will load the memory address of b_value into r6 because b_value is where the lower q6 bit value will be stored 
     ldr r6, =b_value
+    //this stores the value inside r5 into the memoery location pointed to by r6 because r6 has the address of b_value
     str r5, [r6]
     
     /*** STUDENTS: Place your code ABOVE this line!!! **************/
